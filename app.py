@@ -8,12 +8,12 @@ st.set_page_config(
     page_icon=":house:",
 )
 
-show_pages(
-    [
-        Page("app.py", "Homepage", ":house:"),
-        Page("pages/details.py", "Details", ":chart:")
-    ]
-)
+# show_pages(
+#     [
+#         Page("app.py", "Homepage", ":house:"),
+#         Page("pages/Details.py", "Details", ":chart:")
+#     ]
+# )
 
 sdg = st.experimental_connection('sdg_db', type='sql')
 st.write("""
