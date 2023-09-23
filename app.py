@@ -3,17 +3,17 @@ import pandas as pd
 from st_pages import Page, show_pages
 from PIL import Image
 
-st.set_page_config(
-    page_title="Homepage",
-    page_icon="🏠",
-)
+# st.set_page_config(
+#     page_title="Homepage",
+#     page_icon="🏠",
+# )
 
-show_pages(
-    [
-        Page("app.py", "Homepage", ":house:"),
-        Page("pages/details.py", "Details", "📊")
-    ]
-)
+# show_pages(
+#     [
+#         Page("app.py", "Homepage", ":house:"),
+#         Page("pages/details.py", "Details", ":chart:")
+#     ]
+# )
 
 sdg = st.experimental_connection('sdg_db', type='sql')
 
@@ -21,7 +21,7 @@ st.write("""
 # SDGs Data Visualization 
 """)
 
-img = Image.open("assets/Sustainable_Development_Goals.png")
+img = Image.open("assets/Sustainable_Development_Goals.png", mode="r")
 st.image(img)
 
 st.write("""
