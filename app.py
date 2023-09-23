@@ -16,7 +16,6 @@ show_pages(
 )
 
 sdg = st.experimental_connection('sdg_db', type='sql')
-st.help()
 st.write("""
 # SDGs Data Visualization 
 """)
