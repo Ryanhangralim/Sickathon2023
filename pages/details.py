@@ -22,7 +22,7 @@ all = sdg.query(f"SELECT year, sdg_index_score, goal_1_score, goal_2_score, goal
 for i in range(1, 18):
     all[f"goal_{i}_score"] = all[f"goal_{i}_score"].astype(float)
 all["sdg_index_score"] = all['sdg_index_score'].astype(float)
-st.line_chart(all, x="year")
+st.line_chart(all, x="year", width=1500)
 st.dataframe(all, hide_index=True)
 
 #print index chart
