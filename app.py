@@ -52,4 +52,5 @@ st.line_chart(df, x="Year", y=[f'{choice_1}', f'{choice_2}'])
 year = st.slider("Select Year", 2000, 2022, 2011)
 top = st.slider("Top Country", 1, country_count, 10)
 top_countries = sdg.query(f"SELECT country, sdg_index_score FROM sdg WHERE year = {year} ORDER BY sdg_index_score DESC LIMIT {top};")
+top_countries.index = top_countries.index + 1
 st.dataframe(top_countries)
