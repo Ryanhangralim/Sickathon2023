@@ -29,6 +29,8 @@ st.write("""
 
 #Comparison input
 countries = sdg.query('SELECT DISTINCT country FROM sdg;')
+country_count = sdg.query('SELECT count(*) FROM (SELECT DISTINCT country FROM sdg);')
+country_count = int(country_count["count(*)"])
 choice_1 = st.selectbox("Pick first country", countries, index=73)
 choice_2 = st.selectbox("Pick second country", countries, index=80)
 
@@ -45,3 +47,9 @@ df = pd.DataFrame(
     columns=['Year', f'{choice_1}', f'{choice_2}']
 )
 st.line_chart(df, x="Year", y=[f'{choice_1}', f'{choice_2}'])
+
+#Select top countries
+year = st.slider("Select Year", 2000, 2022, 2011)
+top = st.slider("Top Country", 1, country_count, 10)
+top_countries = sdg.query(f"SELECT country, sdg_index_score FROM sdg WHERE year = {year} ORDER BY sdg_index_score DESC LIMIT {top};")
+st.dataframe(top_countries)
