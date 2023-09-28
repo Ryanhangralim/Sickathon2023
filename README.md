@@ -3,7 +3,7 @@
 ![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=Streamlit&logoColor=white)
 
 ## About This Project
-- The main objective behind the making of this app is to help user to visualize and view data related to the SDG scores of countries around the globe.
+- The main objective behind the making of this app is to help user visualize and view data related to the SDG scores of countries around the globe.
 
 ## Features
 - ### Comparison 
