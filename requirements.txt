@@ -2,3 +2,4 @@ streamlit
 pandas
 matplotlib
 SQLAlchemy==1.4.0
+pymysql
