@@ -47,6 +47,7 @@ df = pd.DataFrame(
     },
     columns=['Year', f'{choice_1}', f'{choice_2}']
 )
+print(df)
 st.line_chart(df, x="Year", y=[f'{choice_1}', f'{choice_2}'])
 
 #Select top countries
@@ -55,13 +56,24 @@ st.write("""
 """)
 year = st.slider("Select Year", 2000, 2022, 2011)
 top = st.slider("Top Country", 1, country_count, 10)
-top_countries = sdg.query(f"SELECT country, sdg_index_score FROM sdg WHERE year = {year} ORDER BY sdg_index_score DESC LIMIT {top};")
+
+sort = st.radio("Top methods", ["Highest", "Lowest"], captions= ["Countries with the highest index score", "Countries with the lowest index score"])
+
+if sort == "Highest":
+    sort = "DESC"
+    y = "-y"
+elif sort == "Lowest":
+    sort = "ASC" 
+    y = "y"
+
+
+top_countries = sdg.query(f"SELECT country, sdg_index_score FROM sdg WHERE year = {year} ORDER BY sdg_index_score {sort} LIMIT {top};")
 top_countries.index = top_countries.index + 1
 
 top_countries["sdg_index_score"] = top_countries["sdg_index_score"].astype(float)
 top_chart = (
     alt.Chart(top_countries).mark_bar().encode(
-        x=alt.X('country',title='Country', sort='-y'),
+        x=alt.X('country',title='Country', sort=f'{y}'),
         y=alt.Y("sdg_index_score", title='Index Score')
     )
 )
