@@ -2,30 +2,20 @@ import streamlit as st
 import pandas as pd
 import pydeck as pdk
 import matplotlib.pyplot as plt
-from MySQLdb import _mysql
-
-host = 'sql12.freesqldatabase.com'
-user = 'sql12649391'
-password = 'uM2sjJuZT2'
-database = 'sql12649391'
 
 st.header('SDG Score of Countries Around The World with Interactive Map', divider='rainbow')
 
 # User input
 year = st.slider('Select year', 2000, 2022, 2011)
 
-db = _mysql.connect(host=host, user=user, password=password, database=database)
+# DB Connection
+db = st.experimental_connection('sdg_db', type='sql')
 
-# DB query
-db.query(f"SELECT latlon.lat, latlon.lon, sdg_index.sdg_index_score, sdg_index.country FROM latlon JOIN sdg_index ON latlon.country = sdg_index.country WHERE sdg_index.year = {year}")
-r = db.store_result()
-result = r.fetch_row(0, 1)
-
-df: pd.DataFrame = pd.DataFrame(result)
-df['lat'] = df['lat'].astype(float)
-df['lon'] = df['lon'].astype(float)
-df['sdg_index_score'] = df['sdg_index_score'].astype(float)
-df['country'] = df['country'].astype(str)
+map_df: pd.DataFrame = db.query(f"SELECT latlon.lat, latlon.lon, sdg_index.sdg_index_score, sdg_index.country FROM latlon JOIN sdg_index ON latlon.country = sdg_index.country WHERE sdg_index.year = {year}")
+map_df['lat'] = map_df['lat'].astype(float)
+map_df['lon'] = map_df['lon'].astype(float)
+map_df['sdg_index_score'] = map_df['sdg_index_score'].astype(float)
+map_df['country'] = map_df['country'].astype(str)
 
 st.pydeck_chart(pdk.Deck(
     map_style=None,
@@ -38,7 +28,7 @@ st.pydeck_chart(pdk.Deck(
     layers=[
         pdk.Layer(
            'ColumnLayer',
-           data=df,
+           data=map_df,
            get_position='[lon, lat]',
            get_elevation='sdg_index_score',
            radius=50000,
@@ -60,12 +50,8 @@ st.subheader("Comparasion of country above and below selected index score", divi
 avg = st.slider('Select index score', 0.0, 100.0, 50.0)
 
 # DB query
-db.query(f"SELECT country, sdg_index_score FROM sdg_index WHERE year = {year}")
-r = db.store_result()
-result = r.fetch_row(0, 1)
-
 # Query result return bytes array, so convert it first
-df: pd.DataFrame = pd.DataFrame(result)
+df: pd.DataFrame = db.query(f"SELECT country, sdg_index_score FROM sdg_index WHERE year = {year}")
 df['country'] = df['country'].astype(str)
 df['sdg_index_score'] = df['sdg_index_score'].astype(float)
 
