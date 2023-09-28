@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 from st_pages import Page, show_pages
 from PIL import Image
+import altair as alt
 
 st.set_page_config(
     page_title="Homepage",
@@ -49,8 +50,22 @@ df = pd.DataFrame(
 st.line_chart(df, x="Year", y=[f'{choice_1}', f'{choice_2}'])
 
 #Select top countries
+st.write("""
+## Top Countries Chart
+""")
 year = st.slider("Select Year", 2000, 2022, 2011)
 top = st.slider("Top Country", 1, country_count, 10)
 top_countries = sdg.query(f"SELECT country, sdg_index_score FROM sdg WHERE year = {year} ORDER BY sdg_index_score DESC LIMIT {top};")
 top_countries.index = top_countries.index + 1
+
+top_countries["sdg_index_score"] = top_countries["sdg_index_score"].astype(float)
+top_chart = (
+    alt.Chart(top_countries).mark_bar().encode(
+        x=alt.X('country', sort='-y'),
+        y=alt.Y("sdg_index_score")
+    )
+)
+
+st.altair_chart(top_chart, use_container_width=True)
 st.dataframe(top_countries)
+
