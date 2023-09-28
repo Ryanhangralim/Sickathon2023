@@ -2,7 +2,6 @@ import streamlit as st
 import pandas as pd
 from PIL import Image
 import altair as alt
-from streamlit.connections import SQLConnection
 
 st.set_page_config(
     page_title="Homepage",
