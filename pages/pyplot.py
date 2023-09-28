@@ -4,13 +4,14 @@ import pydeck as pdk
 from MySQLdb import _mysql
 import matplotlib.pyplot as plt
 
-host = 'localhost'
-user = 'root'
-password = 'Mismag0203i9'
-database = 'sdg_streamlit'
+host = 'sql12.freesqldatabase.com'
+user = 'sql12649391'
+password = 'uM2sjJuZT2'
+database = 'sql12649391'
 
 db = _mysql.connect(host=host, user=user, password=password, database=database)
 
+# User input
 year = st.slider('Select year', 2000, 2022, 2011)
 avg = st.slider('Select average', 0.0, 100.0, 50.0)
 
@@ -19,21 +20,29 @@ db.query(f"SELECT country, sdg_index_score FROM sdg_index WHERE year = {year}")
 r = db.store_result()
 result = r.fetch_row(0, 1)
 
+# Query result return bytes array, so convert it first
 df: pd.DataFrame = pd.DataFrame(result)
 df['country'] = df['country'].astype(str)
 df['sdg_index_score'] = df['sdg_index_score'].astype(float)
-st.dataframe(df.sort_values('sdg_index_score').reset_index())
-
-st.dataframe(df[(df['sdg_index_score'] >= avg)].reset_index())
-st.dataframe(df[(df['sdg_index_score'] < avg)].reset_index())
 
 above_avg = len(df[(df['sdg_index_score'] >= avg)])
 below_avg = len(df[(df['sdg_index_score'] < avg)])
 total = len(df)
 
-st.write('Total above average: ', above_avg)
-st.write('Total below average: ', below_avg)
+st.subheader('', divider='rainbow')
 st.write('Total country: ', total)
+st.write('Total country above selected index score: ', above_avg)
+st.write('Total country below selected index score: ', below_avg)
+
+col1, col2 = st.columns(2)
+# Testing (commented)
+# st.dataframe(df.sort_values('sdg_index_score').reset_index(drop=True))
+with col1:
+  st.text('Country above selected index score:')
+  st.dataframe(df[(df['sdg_index_score'] >= avg)].sort_values('sdg_index_score').reset_index(drop=True))
+with col2:
+  st.text('Country below selected index score:')
+  st.dataframe(df[(df['sdg_index_score'] < avg)].sort_values('sdg_index_score').reset_index(drop=True))
 
 ratio = pd.DataFrame({
   'above_avg': [(above_avg/total)],
@@ -41,7 +50,8 @@ ratio = pd.DataFrame({
 }).round(2)
 ratio.index = ['type']
 
-st.dataframe(ratio)
+# Commented
+# st.dataframe(ratio)
 
 fig, ax = plt.subplots(1, 1, figsize=(6.5, 2.5))
 ax.barh(ratio.index, ratio['above_avg'], color='#00CE15', label='Above Average')
@@ -64,5 +74,5 @@ for i in ratio.index:
   ax.annotate(f"{int(ratio['below_avg'][i]*100)}%", xy=(ratio['above_avg'][i]+ratio['below_avg'][i]/2,i), va='center', ha='center', color='white', fontweight='bold', fontsize=30)
   ax.annotate(f"Below average", xy=(ratio['above_avg'][i]+ratio['below_avg'][i]/2,-0.15), va='center', ha='center', color='white', fontweight='bold', fontsize=10)
 
-
+st.subheader('', divider='rainbow')
 st.pyplot(fig)
