@@ -25,6 +25,15 @@ img = Image.open("assets/Sustainable_Development_Goals.png", mode="r")
 st.image(img)
 
 st.write("""
+### Official SDGs Website : [sdg.un.org](https://sdgs.un.org/)
+## What is Sustainable Development Goals (SDGs)?
+The **Sustainable Development Goals (SDGs)** or **Global Goals** are a collection of seventeen interlinked objectives designed to serve as a "shared blueprint for peace and prosperity for people and the planet, now and into the future." The SDGs emphasize the interconnected environmental, social and economic aspects of sustainable development by putting sustainability at their center ([Source](https://en.wikipedia.org/wiki/Sustainable_Development_Goals)).
+         
+## What is SDG index score and scores?
+The SDG index score and scores by goal can be interpreted as the percentage of achievement. The difference between 100 and countries' scores is therefore the distance in percentage that needs to be completed to achieving the SDGs and goals ([Source](https://sdghelpdesk.unescap.org/node/628#:~:text=The%20global%20SDG%20Index%20score,achieving%20the%20SDGs%20and%20goals.)).
+""")
+
+st.write("""
 ## Comparison Chart 
 """)
 
@@ -35,6 +44,7 @@ country_count = int(country_count["count(*)"])
 choice_1 = st.selectbox("Pick first country", countries, index=73)
 choice_2 = st.selectbox("Pick second country", countries, index=80)
 
+#Comparison chart data gathering and output
 index_1 = sdg.query(f'SELECT year, sdg_index_score FROM sdg WHERE country = "{choice_1}";')
 index_2 = sdg.query(f'SELECT year, sdg_index_score FROM sdg WHERE country = "{choice_2}";')
 index_1["sdg_index_score"] = index_1["sdg_index_score"].astype(float)

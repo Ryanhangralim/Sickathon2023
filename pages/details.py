@@ -31,8 +31,6 @@ goals = st.multiselect("Select goals to view", sdgs, ["Goal 1 : No Poverty", "Go
 if(len(goals)>0):
     for i in range(len(goals)):
         index = sdgs.index(goals[i])
-        print(index)
         st.write(f"""### {goals[i]}""")
         goal = get_goal(choice, index+1)
-        print(goal)
         st.line_chart(goal, x='year', y=f'goal_{index+1}_score')
