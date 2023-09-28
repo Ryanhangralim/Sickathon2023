@@ -59,6 +59,10 @@ df = pd.DataFrame(
 )
 st.line_chart(df, x="Year", y=[f'{choice_1}', f'{choice_2}'])
 
+st.write("""
+From the comparison chart above, we could compare and visualize the growth of the index score for the selected countries.
+""")
+
 #Select top countries
 st.write("""
 ## Top Countries Chart
