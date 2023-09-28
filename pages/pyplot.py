@@ -11,9 +11,11 @@ database = 'sql12649391'
 
 db = _mysql.connect(host=host, user=user, password=password, database=database)
 
+st.header("SDGs index score overview")
+
 # User input
 year = st.slider('Select year', 2000, 2022, 2011)
-avg = st.slider('Select average', 0.0, 100.0, 50.0)
+avg = st.slider('Select index score', 0.0, 100.0, 50.0)
 
 # DB query
 db.query(f"SELECT country, sdg_index_score FROM sdg_index WHERE year = {year}")
@@ -69,10 +71,10 @@ ax.set_yticks([])
 
 for i in ratio.index:
   ax.annotate(f"{int(ratio['above_avg'][i]*100)}%", xy=(ratio['above_avg'][i]/2,i), va='center', ha='center', color='white', fontweight='bold', fontsize=30)
-  ax.annotate(f"Above average", xy=(ratio['above_avg'][i]/2,-0.15), va='center', ha='center', color='white', fontweight='bold', fontsize=10)
+  ax.annotate(f"Above selected score", xy=(ratio['above_avg'][i]/2,-0.15), va='center', ha='center', color='white', fontweight='bold', fontsize=10)
 
   ax.annotate(f"{int(ratio['below_avg'][i]*100)}%", xy=(ratio['above_avg'][i]+ratio['below_avg'][i]/2,i), va='center', ha='center', color='white', fontweight='bold', fontsize=30)
-  ax.annotate(f"Below average", xy=(ratio['above_avg'][i]+ratio['below_avg'][i]/2,-0.15), va='center', ha='center', color='white', fontweight='bold', fontsize=10)
+  ax.annotate(f"Below selected score", xy=(ratio['above_avg'][i]+ratio['below_avg'][i]/2,-0.15), va='center', ha='center', color='white', fontweight='bold', fontsize=10)
 
 st.subheader('', divider='rainbow')
 st.pyplot(fig)

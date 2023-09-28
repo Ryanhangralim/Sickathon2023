@@ -26,8 +26,6 @@ st.line_chart(all, x="year")
 st.dataframe(all, hide_index=True)
 
 goals = st.multiselect("Select goals to view", sdgs, ["Goal 1 : No Poverty", "Goal 2 : Zero Hunger"])
-print(goals)
-print(len(goals))
 
 #print index chart
 if(len(goals)>0):
