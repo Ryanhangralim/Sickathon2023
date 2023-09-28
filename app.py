@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-from st_pages import Page, show_pages
 from PIL import Image
 import altair as alt
 
@@ -8,13 +7,6 @@ st.set_page_config(
     page_title="Homepage",
     page_icon=":house:",
 )
-
-# show_pages(
-#     [
-#         Page("app.py", "Homepage", ":house:"),
-#         Page("pages/Details.py", "Details", ":chart:")
-#     ]
-# )
 
 sdg = st.experimental_connection('sdg_db', type='sql')
 st.write("""
