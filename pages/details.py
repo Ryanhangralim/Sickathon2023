@@ -25,6 +25,8 @@ all["sdg_index_score"] = all['sdg_index_score'].astype(float)
 st.line_chart(all, x="year")
 st.dataframe(all, hide_index=True)
 
+st.write("""The chart and table above shows us the data of the index score and each goals score from the selected country within the timeframe of 2000-2022.""")
+
 goals = st.multiselect("Select goals to view", sdgs, ["Goal 1 : No Poverty", "Goal 2 : Zero Hunger"])
 
 #print index chart
