@@ -31,6 +31,17 @@ st.write("""
 # Country SDGs Goals Visualization 
 """)
 
+# Each year SDG index score distribution 
+chart_data = pd.DataFrame(all)
+chart_data = chart_data.drop(['sdg_index_score'], axis=1)
+
+columns_to_divide = ['goal_1_score', 'goal_2_score', 'goal_3_score', 'goal_4_score', 'goal_5_score', 'goal_6_score', 'goal_7_score', 'goal_8_score', 'goal_9_score', 'goal_10_score', 'goal_11_score', 'goal_12_score', 'goal_13_score', 'goal_14_score', 'goal_15_score', 'goal_16_score', 'goal_17_score']
+chart_data[columns_to_divide] = chart_data[columns_to_divide] / 17
+chart_data = chart_data.round(2)
+
+st.subheader('How is the distribution comparation on each point?')
+st.bar_chart(chart_data, x='year', height=600)
+
 goals = st.multiselect("Select goals to view", sdgs, ["Goal 1 : No Poverty", "Goal 2 : Zero Hunger"])
 
 #print index chart
