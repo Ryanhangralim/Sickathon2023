@@ -43,8 +43,10 @@ st.pydeck_chart(pdk.Deck(
     }
 ))
 
+st.write("""The map above shows the index score of each countries in a map.""")
+
 #################Pyplot Section#################
-st.subheader("Comparasion of country above and below selected index score", divider='rainbow')
+st.subheader("Comparison of country above and below selected index score", divider='rainbow')
 
 # Input
 avg = st.slider('Select index score', 0.0, 100.0, 50.0)
@@ -109,3 +111,7 @@ for i in ratio.index:
   ax.annotate(f"Below selected score", xy=(ratio['above_avg'][i]+ratio['below_avg'][i]/2,-0.15), va='center', ha='center', color='white', fontweight='bold', fontsize=10)
 
 st.pyplot(fig)
+
+st.write("""
+The bar above shows the percentage of countries above and below the selected scores.
+""")
