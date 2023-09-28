@@ -47,7 +47,6 @@ df = pd.DataFrame(
     },
     columns=['Year', f'{choice_1}', f'{choice_2}']
 )
-print(df)
 st.line_chart(df, x="Year", y=[f'{choice_1}', f'{choice_2}'])
 
 #Select top countries

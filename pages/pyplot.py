@@ -39,12 +39,17 @@ st.write('Total country below selected index score: ', below_avg)
 col1, col2 = st.columns(2)
 # Testing (commented)
 # st.dataframe(df.sort_values('sdg_index_score').reset_index(drop=True))
+above_score = df[(df['sdg_index_score'] >= avg)].sort_values('sdg_index_score').reset_index(drop=True)
+under_score = df[(df['sdg_index_score'] < avg)].sort_values('sdg_index_score').reset_index(drop=True)
+above_score.index = above_score.index + 1
+under_score.index = under_score.index + 1
+
 with col1:
   st.text('Country above selected index score:')
-  st.dataframe(df[(df['sdg_index_score'] >= avg)].sort_values('sdg_index_score').reset_index(drop=True))
+  st.dataframe(above_score)
 with col2:
   st.text('Country below selected index score:')
-  st.dataframe(df[(df['sdg_index_score'] < avg)].sort_values('sdg_index_score').reset_index(drop=True))
+  st.dataframe(under_score)
 
 ratio = pd.DataFrame({
   'above_avg': [(above_avg/total)],
