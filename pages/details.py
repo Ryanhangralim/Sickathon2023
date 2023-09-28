@@ -27,6 +27,10 @@ st.dataframe(all, hide_index=True)
 
 st.write("""The chart and table above shows us the data of the index score and each goals score from the selected country within the timeframe of 2000-2022.""")
 
+st.write("""
+# SDGs Goals Visualization 
+""")
+
 goals = st.multiselect("Select goals to view", sdgs, ["Goal 1 : No Poverty", "Goal 2 : Zero Hunger"])
 
 #print index chart
@@ -36,3 +40,7 @@ if(len(goals)>0):
         st.write(f"""### {goals[i]}""")
         goal = get_goal(choice, index+1)
         st.line_chart(goal, x='year', y=f'goal_{index+1}_score')
+
+st.write("""
+From this feature, we could visualize the data of each individual goal selected from the multiselect input.
+""")
