@@ -61,10 +61,10 @@ sort = st.radio("Top methods", ["Highest", "Lowest"], captions= ["Countries with
 
 if sort == "Highest":
     sort = "DESC"
-    y = "-y"
+    x = "-x"
 elif sort == "Lowest":
     sort = "ASC" 
-    y = "y"
+    x = "x"
 
 
 top_countries = sdg.query(f"SELECT country, sdg_index_score FROM sdg WHERE year = {year} ORDER BY sdg_index_score {sort} LIMIT {top};")
@@ -73,8 +73,8 @@ top_countries.index = top_countries.index + 1
 top_countries["sdg_index_score"] = top_countries["sdg_index_score"].astype(float)
 top_chart = (
     alt.Chart(top_countries).mark_bar().encode(
-        x=alt.X('country',title='Country', sort=f'{y}'),
-        y=alt.Y("sdg_index_score", title='Index Score')
+        x=alt.X("sdg_index_score", title='Index Score'),
+        y=alt.Y('country',title='Country', sort=f'{x}')
     )
 )
 
