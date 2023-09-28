@@ -1,6 +1,5 @@
 streamlit
 pandas
 matplotlib
-st_pages
 SQLAlchemy==1.4.0
 mysqlclient

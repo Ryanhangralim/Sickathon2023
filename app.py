@@ -1,6 +1,5 @@
 import streamlit as st
 import pandas as pd
-from st_pages import Page, show_pages
 from PIL import Image
 import altair as alt
 
@@ -9,13 +8,6 @@ st.set_page_config(
     page_icon=":house:",
 )
 
-# show_pages(
-#     [
-#         Page("app.py", "Homepage", ":house:"),
-#         Page("pages/Details.py", "Details", ":chart:")
-#     ]
-# )
-
 sdg = st.experimental_connection('sdg_db', type='sql')
 st.write("""
 # SDGs Data Visualization 
@@ -23,6 +15,15 @@ st.write("""
 
 img = Image.open("assets/Sustainable_Development_Goals.png", mode="r")
 st.image(img)
+
+st.write("""
+### Official SDGs Website : [sdg.un.org](https://sdgs.un.org/)
+## What is Sustainable Development Goals (SDGs)?
+The **Sustainable Development Goals (SDGs)** or **Global Goals** are a collection of seventeen interlinked objectives designed to serve as a "shared blueprint for peace and prosperity for people and the planet, now and into the future." The SDGs emphasize the interconnected environmental, social and economic aspects of sustainable development by putting sustainability at their center ([Source](https://en.wikipedia.org/wiki/Sustainable_Development_Goals)).
+         
+## What is SDG index score and scores?
+The SDG index score and scores by goal can be interpreted as the percentage of achievement. The difference between 100 and countries' scores is therefore the distance in percentage that needs to be completed to achieving the SDGs and goals ([Source](https://sdghelpdesk.unescap.org/node/628#:~:text=The%20global%20SDG%20Index%20score,achieving%20the%20SDGs%20and%20goals.)).
+""")
 
 st.write("""
 ## Comparison Chart 
@@ -35,6 +36,7 @@ country_count = int(country_count["count(*)"])
 choice_1 = st.selectbox("Pick first country", countries, index=73)
 choice_2 = st.selectbox("Pick second country", countries, index=80)
 
+#Comparison chart data gathering and output
 index_1 = sdg.query(f'SELECT year, sdg_index_score FROM sdg WHERE country = "{choice_1}";')
 index_2 = sdg.query(f'SELECT year, sdg_index_score FROM sdg WHERE country = "{choice_2}";')
 index_1["sdg_index_score"] = index_1["sdg_index_score"].astype(float)
@@ -48,6 +50,10 @@ df = pd.DataFrame(
     columns=['Year', f'{choice_1}', f'{choice_2}']
 )
 st.line_chart(df, x="Year", y=[f'{choice_1}', f'{choice_2}'])
+
+st.write("""
+From the comparison chart above, we could compare and visualize the growth of the index score for the selected countries.
+""")
 
 #Select top countries
 st.write("""
@@ -80,3 +86,6 @@ top_chart = (
 st.altair_chart(top_chart, use_container_width=True)
 st.dataframe(top_countries)
 
+st.write("""
+With this feature, we could input the year, number of countries and methods (highest/lowest). A chart and table will be made depending on these input. From the chart and table above, we could see the top countries with the highest or lowest SDG index score depending on the selected methods.
+""")

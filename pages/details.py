@@ -10,7 +10,7 @@ def get_goal(choice, num):
     return goal
 
 st.write("""
-# SDGs Data Visualization 
+# Country SDGs Data Visualization Details
 """)
 
 #User choicebox
@@ -24,6 +24,12 @@ for i in range(1, 18):
 all["sdg_index_score"] = all['sdg_index_score'].astype(float)
 st.line_chart(all, x="year")
 st.dataframe(all, hide_index=True)
+
+st.write("""The chart and table above shows us the data of the index score and each goals score from the selected country within the timeframe of 2000-2022.""")
+
+st.write("""
+# Country SDGs Goals Visualization 
+""")
 
 # Each year SDG index score distribution 
 chart_data = pd.DataFrame(all)
@@ -42,8 +48,10 @@ goals = st.multiselect("Select goals to view", sdgs, ["Goal 1 : No Poverty", "Go
 if(len(goals)>0):
     for i in range(len(goals)):
         index = sdgs.index(goals[i])
-        print(index)
         st.write(f"""### {goals[i]}""")
         goal = get_goal(choice, index+1)
-        print(goal)
         st.line_chart(goal, x='year', y=f'goal_{index+1}_score')
+
+st.write("""
+From this feature, we could visualize the data of each individual goal selected from the multiselect input.
+""")
