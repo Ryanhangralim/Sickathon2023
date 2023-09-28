@@ -42,6 +42,8 @@ chart_data = chart_data.round(2)
 st.subheader('How is the distribution comparation on each point?')
 st.bar_chart(chart_data, x='year', height=600)
 
+st.write("""From the chart above, we could see the distribution of each goal from the index score within each year.""")
+
 goals = st.multiselect("Select goals to view", sdgs, ["Goal 1 : No Poverty", "Goal 2 : Zero Hunger"])
 
 #print index chart
