@@ -94,3 +94,6 @@ top_chart = (
 st.altair_chart(top_chart, use_container_width=True)
 st.dataframe(top_countries)
 
+st.write("""
+With this feature, we could input the year, number of countries and methods (highest/lowest). A chart and table will be made depending on these input. From the chart and table above, we could see the top countries with the highest or lowest SDG index score depending on the selected methods.
+""")
