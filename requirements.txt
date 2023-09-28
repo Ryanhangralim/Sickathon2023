@@ -2,4 +2,4 @@ streamlit
 pandas
 matplotlib
 SQLAlchemy==1.4.0
-mysqlclient
+mysqlclient==2.2.0
