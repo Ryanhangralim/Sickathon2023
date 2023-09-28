@@ -61,8 +61,8 @@ top_countries.index = top_countries.index + 1
 top_countries["sdg_index_score"] = top_countries["sdg_index_score"].astype(float)
 top_chart = (
     alt.Chart(top_countries).mark_bar().encode(
-        x=alt.X('country', sort='-y'),
-        y=alt.Y("sdg_index_score")
+        x=alt.X('country',title='Country', sort='-y'),
+        y=alt.Y("sdg_index_score", title='Index Score')
     )
 )
 
