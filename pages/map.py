@@ -8,6 +8,8 @@ user = 'sql12649391'
 password = 'uM2sjJuZT2'
 database = 'sql12649391'
 
+st.header('SDG Score of Countries Around The World with Interactive Map', divider='rainbow')
+
 # Year input slider
 sdg_year: int = st.slider('Select year', 2000, 2022, 2011)
 
@@ -23,14 +25,14 @@ df['lat'] = df['lat'].astype(float)
 df['lon'] = df['lon'].astype(float)
 df['sdg_index_score'] = df['sdg_index_score'].astype(float)
 df['country'] = df['country'].astype(str)
-st.dataframe(df)
+# st.dataframe(df)
 
 st.pydeck_chart(pdk.Deck(
     map_style=None,
     initial_view_state=pdk.ViewState(
-        latitude=-2.4833826,
-        longitude=117.8902853,
-        zoom=5,
+        latitude=18.82,
+        longitude=19.57,
+        zoom=1,
         pitch=50,
     ),
     layers=[
