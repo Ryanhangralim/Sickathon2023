@@ -29,6 +29,10 @@
 
     The app will then show the number of countries with the index score above and under the selected score in a form of a number, table and a bar.
 
+## UI
+![home](homepage.png)
+![details](detailpage.png)
+
 ## References
 - **Datasets Used In This Project**
 
