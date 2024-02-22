@@ -36,5 +36,5 @@
 ## References
 - **Datasets Used In This Project**
 
-    1. https://www.kaggle.com/datasets/ankanhore545/sustainable-development-report-20002022
+    1. https://www.kaggle.com/datasets/sazidthe1/sustainable-development-report
     2. https://www.kaggle.com/datasets/paultimothymooney/latitude-and-longitude-for-every-country-and-state/code
