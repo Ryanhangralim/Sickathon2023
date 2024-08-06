@@ -44,6 +44,7 @@ pip install -r requirements.txt
 
 ```bash
 mkdir .streamlit
+cd .streamlit
 code secrets.toml
 ```
 
