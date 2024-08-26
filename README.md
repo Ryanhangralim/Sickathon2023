@@ -92,8 +92,9 @@ streamlit run home.py
 
 ## UI
 
-![home](homepage.png)
-![details](detailpage.png)
+![home](images/homepage.png)
+![map](images/mappage.png)
+![details](images/detailpage.png)
 
 ## References
 
